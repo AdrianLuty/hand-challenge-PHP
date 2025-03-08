@@ -1,23 +1,18 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 $filePath = __DIR__ . '/input.hand';
 if (!file_exists($filePath)) {
     die("Error: The file input.hand does not exist at " . $filePath);
 }
-// Read the file and ensure it's in UTF-8
 $code = file_get_contents($filePath);
 $code = mb_convert_encoding($code, 'UTF-8', 'auto');
 function interpretHPL($code) {
-    $memory = array_fill(0, 30000, 0); // Initialize the memory
+    $memory = array_fill(0, 30000, 0);
     $pointer = 0;
     $output = '';
     $loopStack = [];
     $codeLength = mb_strlen($code);
-    // Execution start
     for ($i = 0; $i < $codeLength; $i++) {
-        $char = mb_substr($code, $i, 1); // Extract the emoji correctly
-      // echo "Instruction: {$char} at position $i | Pointer: $pointer | Value: {$memory[$pointer]}\n";
+        $char = mb_substr($code, $i, 1);
         switch ($char) {
             case '👉': $pointer++; break;
             case '👈': $pointer = max(0, $pointer - 1); break;
@@ -50,11 +45,9 @@ function interpretHPL($code) {
                 }
                 break;
             case '👊':
-                // echo "Output: " . chr($memory[$pointer]) . " (ASCII: {$memory[$pointer]})\n";
                 $output .= chr($memory[$pointer]);
                 break;
         }
-    // echo "Memory[0-10]: " . implode(" ", array_slice($memory, 0, 10)) . "\n";
     }
     return $output;
 }
