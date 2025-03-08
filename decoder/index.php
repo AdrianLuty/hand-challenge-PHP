@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$filePath = __DIR__ . '/input2.hand';
+$filePath = __DIR__ . '/input.hand';
 if (!file_exists($filePath)) {
     die("Error: The file input.hand does not exist at " . $filePath);
 }
