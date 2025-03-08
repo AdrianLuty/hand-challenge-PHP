@@ -8,14 +8,13 @@ if (!file_exists($filePath)) {
 // Read the file and ensure it's in UTF-8
 $code = file_get_contents($filePath);
 $code = mb_convert_encoding($code, 'UTF-8', 'auto');
-
 function interpretHPL($code) {
     $memory = array_fill(0, 30000, 0); // Initialize the memory
     $pointer = 0;
     $output = '';
     $loopStack = [];
     $codeLength = mb_strlen($code);
-    // echo "Execution start:\n";
+    // Execution start
     for ($i = 0; $i < $codeLength; $i++) {
         $char = mb_substr($code, $i, 1); // Extract the emoji correctly
       // echo "Instruction: {$char} at position $i | Pointer: $pointer | Value: {$memory[$pointer]}\n";
@@ -51,11 +50,11 @@ function interpretHPL($code) {
                 }
                 break;
             case '👊':
-                //  echo "Output: " . chr($memory[$pointer]) . " (ASCII: {$memory[$pointer]})\n";
+                // echo "Output: " . chr($memory[$pointer]) . " (ASCII: {$memory[$pointer]})\n";
                 $output .= chr($memory[$pointer]);
                 break;
         }
-    //    echo "Memory[0-10]: " . implode(" ", array_slice($memory, 0, 10)) . "\n";
+    // echo "Memory[0-10]: " . implode(" ", array_slice($memory, 0, 10)) . "\n";
     }
     return $output;
 }
