@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 function textToHPL($text) {
     $hplCode = '';
     $prevAscii = 0;
@@ -12,7 +10,7 @@ function textToHPL($text) {
         } elseif ($diff < 0) {
             $hplCode .= str_repeat('👇', abs($diff));
         }
-        $hplCode .= '👊'; // Output character
+        $hplCode .= '👊';
         $prevAscii = $ascii;
     }
     return $hplCode;
